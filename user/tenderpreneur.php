@@ -77,14 +77,14 @@ echo "<script> alert('You have  Successfully Deleted a User! ' ); </script>";
     <div class="app-container app-theme-white body-tabs-shadow fixed-sidebar fixed-header">
         
         <!--Header -->
-      <?php  include '../includes/header.php' ?>
+      <?php  include '../includes/user/header.php' ?>
                
     <!--Layout -->
-      <?php include '../includes/layout.php'?>
+      <?php include '../includes/user/layout.php'?>
                        
         <div class="app-main">
             <!--Sidebar Menu -->
-                    <?php include '../includes/sidebar.php'?>
+                    <?php include '../includes/user/sidebar.php'?>
                  <div class="app-main__outer">
                     <div class="app-main__inner">
                         <div class="app-page-title">

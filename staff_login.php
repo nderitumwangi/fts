@@ -5,7 +5,7 @@ if(isset($_POST['login']))
 {
 
     $email=$_POST['email'];
-    $password=$_POST['password'];
+    $password=md5($_POST['password']);
 //$password=md5($_POST['password']);
     $sql ="SELECT * FROM users WHERE Email=:email and Password=:password ";
     $query= $dbh -> prepare($sql);

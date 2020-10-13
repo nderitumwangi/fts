@@ -1,34 +1,44 @@
 <?php
-session_start();
-include('config/connect.php');
-if(isset($_POST['login']))
+
+require_once './config/connect.php';
+
+if(isset($_POST['Submit']))
 {
-    
+
+$tp_name=$_POST['tp_name'];
+$kra_cert=$_POST['kra_cert'];
+$certificate=$_POST['certificate'];
+$contact=$_POST['contact'];
 $email=$_POST['email'];
-$password=md5($_POST['password']);
-//$password=md5($_POST['password']);
-$sql ="SELECT * FROM tenderpreneurs WHERE email=:email and pass=:password";
-$query= $dbh -> prepare($sql);
-$query-> bindParam(':email', $email, PDO::PARAM_STR);
-$query-> bindParam(':password', $password, PDO::PARAM_STR);
-$query-> execute();
+$pass=md5($_POST['pass']);
 
-$results=$query->fetchAll(PDO::FETCH_OBJ);
 
-if($query->rowCount() > 0)
+$sql="INSERT INTO  tenderpreneurs( tp_name, kra_cert, certificate,  contact ,email,pass ) VALUES( :tp_name, :kra_cert, :certificate, :contact, :email, :pass)";
+
+$query = $dbh->prepare($sql);
+$query->bindParam(':tp_name',$tp_name,PDO::PARAM_STR);
+$query-> bindParam(':kra_cert', $kra_cert, PDO::PARAM_STR);
+$query->bindParam(':certificate',$certificate,PDO::PARAM_STR);
+$query->bindParam(':contact',$contact,PDO::PARAM_STR);
+$query->bindParam(':email',$email,PDO::PARAM_STR);
+$query->bindParam(':pass',$pass,PDO::PARAM_STR);
+
+$query->execute();
+
+
+$lastInsertId = $dbh->lastInsertId();
+if($lastInsertId)
 {
-$_SESSION['alogin']=$_POST['email'];
-
-
-echo "<script type='text/javascript'> document.location = 'candidate/index.php'; </script>";
     
-} else{
-    
-    echo "<script>alert('Invalid Details');</script>";
-
+echo "<script> alert('You have  Successfully Registered' ); </script>";
+header('location:candidate_login.php');
+}
+else 
+{
+echo "<script> alert('There was a problem' ); </script>";
+}
 }
 
-}
 
 ?>
 
@@ -39,7 +49,7 @@ echo "<script type='text/javascript'> document.location = 'candidate/index.php';
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>FTS | Login</title>
+    <title>FTS | Register</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 <!--===============================================================================================-->  
@@ -65,7 +75,7 @@ echo "<script type='text/javascript'> document.location = 'candidate/index.php';
     
     <div class="limiter">
         <div class="container-login100" style="background-image: url('assets/images/img-01.jpg');">
-            <div class="wrap-login100 p-t-190 p-b-30">
+            <div class="wrap-login100 p-t-1 p-b-30">
                 <form class="login100-form validate-form" method="POST" action="">
                     <div class="login100-form-avatar">
                         <img src="assets/images/fund.jpg" alt="AVATAR">
@@ -74,6 +84,36 @@ echo "<script type='text/javascript'> document.location = 'candidate/index.php';
                     <span class="login100-form-title p-t-20 p-b-45">
                         Funds Track System | Tenderpreneur
                     </span>
+                     <div class="wrap-input100 validate-input m-b-10" data-validate = "Name is required">
+                        <input class="input100" type="text" name="tp_name" placeholder="Name">
+                        <span class="focus-input100"></span>
+                        <span class="symbol-input100">
+                            <i class="fa fa-user"></i>
+                        </span>
+                    </div>
+                     <div class="wrap-input100 validate-input m-b-10" data-validate = "KRA certificate is required">
+                        <input class="input100" type="text" name="kra_cert" placeholder="KRA Cert">
+                        <span class="focus-input100"></span>
+                        <span class="symbol-input100">
+                            <i class="fa fa-user"></i>
+                        </span>
+                    </div>
+                     <div class="wrap-input100 validate-input m-b-10" data-validate = "certificate is required">
+                        <input class="input100" type="text" name="certificate" placeholder="Certificate">
+                        <span class="focus-input100"></span>
+                        <span class="symbol-input100">
+                            <i class="fa fa-user"></i>
+                        </span>
+                    </div>
+
+                    <div class="wrap-input100 validate-input m-b-10" data-validate = "Contact is required">
+                        <input class="input100" type="text" name="contact" placeholder="Contact">
+                        <span class="focus-input100"></span>
+                        <span class="symbol-input100">
+                            <i class="fa fa-user"></i>
+                        </span>
+                    </div>
+
 
                     <div class="wrap-input100 validate-input m-b-10" data-validate = "Email is required">
                         <input class="input100" type="text" name="email" placeholder="Email">
@@ -84,7 +124,7 @@ echo "<script type='text/javascript'> document.location = 'candidate/index.php';
                     </div>
 
                     <div class="wrap-input100 validate-input m-b-10" data-validate = "Password is required">
-                        <input class="input100" type="password" name="password" placeholder="Password">
+                        <input class="input100" type="password" name="pass" placeholder="Password">
                         <span class="focus-input100"></span>
                         <span class="symbol-input100">
                             <i class="fa fa-lock"></i>
@@ -92,8 +132,8 @@ echo "<script type='text/javascript'> document.location = 'candidate/index.php';
                     </div>
 
                     <div class="container-login100-form-btn p-t-10">
-                        <button type="submit" name ="login"  class="login100-form-btn">
-                            Login
+                        <button type="submit" name ="Submit"  class="login100-form-btn">
+                           Register
                         </button>
                     </div>
 

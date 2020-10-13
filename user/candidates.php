@@ -23,7 +23,7 @@
                        
         <div class="app-main">
             <!--Sidebar Menu -->
-                    <?php include '../includes/user/  sidebar.php'?>
+                    <?php include '../includes/user/sidebar.php'?>
                  <div class="app-main__outer">
                     <div class="app-main__inner">
                         <div class="app-page-title">

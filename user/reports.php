@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta http-equiv="Content-Language" content="en">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-    <title>FTS | Admin</title>
+    <title>FTS | Candidate</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, shrink-to-fit=no" />
     <meta name="description" content="">
     <meta name="msapplication-tap-highlight" content="no">
@@ -23,7 +23,7 @@
                        
         <div class="app-main">
             <!--Sidebar Menu -->
-                    <?php include '../includes/user/sidebar.php'?>
+                    <?php include '../includes/candidate/sidebar.php'?>
                  <div class="app-main__outer">
                     <div class="app-main__inner">
                         <div class="app-page-title">
@@ -33,8 +33,8 @@
                                         <i class="pe-7s-car icon-gradient bg-mean-fruit">
                                         </i>
                                     </div>
-                                    <div>Admin Dashboard
-                                        <div class="page-title-subheading">Welcome Admin to Funds Track System.
+                                    <div>View Reports
+                                        <div class="page-title-subheading">Current Reports to Funds Track System.
                                         </div>
                                     </div>
                                 </div>
@@ -98,7 +98,7 @@
                         
                     </div>
                     <!--Footer -->
-                    <?php include '../includes/footer.php'?>
+                    <?php include '../includes/candidate/footer.php'?>
                       
                      </div>
                 <script src="http://maps.google.com/maps/api/js?sensor=true"></script>

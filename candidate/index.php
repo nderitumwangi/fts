@@ -33,7 +33,7 @@
                                         <i class="pe-7s-car icon-gradient bg-mean-fruit">
                                         </i>
                                     </div>
-                                    <div>Candidate Dashboard
+                                    <div>Tenderpreneur Dashboard
                                         <div class="page-title-subheading">Welcome Candidate to Funds Track System.
                                         </div>
                                     </div>
@@ -43,7 +43,7 @@
                                         <i class="fa fa-star"></i>
                                     </button>
                                     <div class="d-inline-block dropdown">
-                                        <a href="../config/logout.php" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="btn-shadow  btn btn-info">
+                                        <a href="../config/logout.php">
                                             <span class="btn-icon-wrapper pr-2 opacity-7">
                                                 <i class="fa fa-business-time fa-w-20"></i>
                                             </span>

@@ -76,14 +76,14 @@ echo "<script> alert('There was a problem' ); </script>";
     <div class="app-container app-theme-white body-tabs-shadow fixed-sidebar fixed-header">
         
         <!--Header -->
-      <?php  include '../includes/header.php' ?>
+      <?php  include '../includes/candidate/header.php' ?>
                
     <!--Layout -->
-      <?php include '../includes/layout.php'?>
+      <?php include '../includes/candidate/layout.php'?>
                        
         <div class="app-main">
             <!--Sidebar Menu -->
-                    <?php include '../includes/sidebar.php'?>
+                    <?php include '../includes/candidate/sidebar.php'?>
                  <div class="app-main__outer">
                     <div class="app-main__inner">
                         <div class="app-page-title">
@@ -115,7 +115,7 @@ echo "<script> alert('There was a problem' ); </script>";
 <?php
 //session_start();
 $email=$_SESSION['alogin'];
-$sql ="SELECT * FROM tenderpreneurs WHERE email=:email ";
+$sql ="SELECT * FROM users WHERE Email=:email ";
 $query= $dbh -> prepare($sql);
 $query-> bindParam(':email', $email, PDO::PARAM_STR);
 $query-> execute();
@@ -124,13 +124,11 @@ if($query->rowCount() > 0)
 {
 foreach($results as $result)
   {
-   $id= ($result->tp_no);
-   $name = ($result->tp_name);
-   $kra=  ($result->kra_cert);
-   $cert= ($result->cert);
-   $email = ($result->email);
-   $contact = ($result->contact);
-   
+   $id= ($result->user_no);
+   $fname = ($result->First_name);
+   $lname = ($result->Last_name);
+   $dept = ($result->Department);
+   $level = ($result->Level);
 }}
 
    ?>
@@ -145,26 +143,30 @@ foreach($results as $result)
                                             </div>
 
                                            <div class="col-lg-2">
-                                                 Name:
+                                                 First Name:
                                                  <br/>
-                                            <?php echo $name; ?>
+                                            <?php echo $fname; ?>
                                             </div>
                                             <div class="col-lg-2">
-                                                 KRA Cert:
+                                                 Last Name:
                                                  <br/>
-                                            <?php echo $kra; ?>
+                                            <?php echo $lname; ?>
                                             </div>
                                             <div class="col-lg-2">
-                                                    Cert:
+                                                Email:
                                                 <br/>
-                                                <?php echo $cert; ?>
+                                                <?php echo $email; ?>
                                             </div>
                                             <div class="col-lg-2">
-                                               <h> Contact :</h>
+                                               <h> Department:</h>
                                                 <br/>
-                                                <?php echo $contact; ?>
+                                                <?php echo $dept; ?>
                                             </div>
-                                            
+                                            <div class="col-lg-2">
+                                                Level:
+                                                <br/>
+                                                <?php echo $level; ?>
+                                            </div>
 
 
                                         </div>

@@ -10,7 +10,7 @@ $last=$_POST['last'];
 $email=$_POST['email'];
 $dept=$_POST['dept'];
 $level=$_POST['level'];
-$pass=$_POST['pass'];
+$pass=md5($_POST['pass']);
 
 //$AddedBy=$_SESSION['alogin'];
     
@@ -44,6 +44,32 @@ echo "<script> alert('You have  Successfully Deleted a User! ' ); </script>";
 echo "<script type='text/javascript'> document.location = 'users.php'; </script>";
 
 }
+
+
+if(isset ($_GET['update'])){
+
+$id=$_GET['update'];
+
+$sql ="SELECT * FROM users WHERE user_no=:id ";
+$query= $dbh -> prepare($sql);
+$query-> bindParam(':id', $id, PDO::PARAM_STR);
+$query-> execute();
+$results=$query->fetchAll(PDO::FETCH_OBJ);
+if($query->rowCount() > 0)
+{
+foreach($results as $result)
+  {
+   
+   $fname = ($result->First_name);
+   $lname = ($result->Last_name);
+   $dept = ($result->Department);
+   $level = ($result->Level);
+
+
+   
+
+}}}
+
 
  ?>
 
@@ -145,12 +171,12 @@ foreach($results as $result)
                                                 <td><?php echo htmlentities($result->Department);?></td>
                                                 <td><?php echo htmlentities($result->Level);?></td>
                                                 <td>
-                                                    <a class="mb-2 mr-2 btn-transition btn btn-outline-primary" data-toggle="modal" data-target=".editUserModal" href="users.php?pid=<?php echo htmlentities($result->user_no);?>">
+                                                    <a class="mb-2 mr-2 btn-transition btn btn-outline-primary" data-toggle="modal" data-target=".editUserModal" href="users.php?update=<?php echo htmlentities($result->user_no);?>">
                                                         <i class="pe-7s-add-user "></i>
                                       
                                                         Update 
                                                     </a>
-                                                    <a class="mb-2 mr-2 btn-transition btn btn-outline-primary" href="users.php?del=<?php echo $result->user_no;?>" `onclick="return confirm('Confirm  you want to delete the user');">
+                                                    <a class="mb-2 mr-2 btn-transition btn btn-outline-primary" href="users.php?del=<?php echo $result->user_no;?>" onclick="return confirm('Confirm  you want to delete the user');">
 
                                                         <i class="pe-7s-add-user ">
                                                          </i>
@@ -219,7 +245,7 @@ foreach($results as $result)
                                             <label for="validationCustomUsername">Email</label>
                                             <div class="input-group">
                                                 
-                                                <input type="text" class="form-control"  name="email" placeholder="" aria-describedby="inputGroupPrepend" required>
+                                                <input type="text" class="form-control" value="" name="email" placeholder="" aria-describedby="inputGroupPrepend" required>
                                                 <div class="invalid-feedback">
                                                     Please choose an email.
                                                 </div>
@@ -232,7 +258,7 @@ foreach($results as $result)
                                     <div class="form-row">
                                         <div class="col-md-6 mb-3">
                                             <label for="validationCustom03">Department</label>
-                                            <input type="text" class="form-control" name="dept" placeholder="" required>
+                                            <input type="text" class="form-control" name="dept" placeholder="" value="" required>
                                             <div class="invalid-feedback">
                                                 Please provide a valid department.
                                             </div>
@@ -299,7 +325,9 @@ foreach($results as $result)
 
 <!-- Edit User modal -->
 
-<div class="modal fade addUserModal" tabindex="-1" role="dialog" aria-labelledby="addUserModal" aria-hidden="true">
+
+<!-- Edit User modal -->
+<div class="modal fade editUserModal" tabindex="-1" role="dialog" aria-labelledby="addUserModal" aria-hidden="true">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
@@ -311,12 +339,12 @@ foreach($results as $result)
             <div class="modal-body">
               <div class="main-card mb-3 card">
                             <div class="card-body">
-                                <h5 class="card-title">Add User Form</h5>
+                                <h5 class="card-title">Edit User Form</h5>
                                 <form class="needs-validation" method="POST" action="" novalidate>
                                     <div class="form-row">
                                         <div class="col-md-4 mb-3">
                                             <label for="validationCustom01">First name</label>
-                                            <input type="text" class="form-control" name="first" placeholder="" value="" required>
+                                            <input type="text" class="form-control" name="first" placeholder="" value="<?php echo $fname; ?>" required>
                                             <div class="valid-feedback">
                                                 Looks good!
                                             </div>
@@ -326,7 +354,7 @@ foreach($results as $result)
                                         </div>
                                         <div class="col-md-4 mb-3">
                                             <label for="validationCustom02">Last name</label>
-                                            <input type="text" class="form-control"  name="last" placeholder="" value="" required>
+                                            <input type="text" class="form-control"  name="last" placeholder="" value="<?php echo $lname; ?>" required>
                                             <div class="valid-feedback">
                                                 Looks good!
                                             </div>
@@ -338,7 +366,7 @@ foreach($results as $result)
                                             <label for="validationCustomUsername">Email</label>
                                             <div class="input-group">
                                                 
-                                                <input type="text" class="form-control"  name="email" placeholder="" aria-describedby="inputGroupPrepend" required>
+                                                <input type="text" class="form-control"  name="email" placeholder="" value="<?php echo $email; ?>" aria-describedby="inputGroupPrepend" required>
                                                 <div class="invalid-feedback">
                                                     Please choose an email.
                                                 </div>
@@ -351,7 +379,7 @@ foreach($results as $result)
                                     <div class="form-row">
                                         <div class="col-md-6 mb-3">
                                             <label for="validationCustom03">Department</label>
-                                            <input type="text" class="form-control" name="dept" placeholder="" required>
+                                            <input type="text" class="form-control" name="dept" placeholder="" value="<?php echo $dept; ?>" required>
                                             <div class="invalid-feedback">
                                                 Please provide a valid department.
                                             </div>
@@ -361,7 +389,7 @@ foreach($results as $result)
                                         </div>
                                         <div class="col-md-3 mb-3">
                                             <label for="validationCustom04">Level</label>
-                                            <input type="text" class="form-control" name="level" placeholder="" required>
+                                            <input type="text" class="form-control" name="level" placeholder="" value="<?php echo $level; ?>" required>
                                             <div class="invalid-feedback">
                                                 Please provide a valid state.
                                             </div>
@@ -416,7 +444,13 @@ foreach($results as $result)
     </div>
 </div>
 
-<!-- Edit User modal -->
+
+
+
+
+
+
+<!---->
 
 <div class="modal fade deleteUserModal" tabindex="-1" role="dialog" aria-labelledby="deleteUserModatl" aria-hidden="true">
     <div class="modal-dialog modal-lg">
